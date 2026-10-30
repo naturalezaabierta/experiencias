@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiencias · Naturaleza Abierta</title>
+<meta name="description" content="Historias reales de la comunidad de Naturaleza Abierta. Lee experiencias o comparte la tuya.">
+<meta name="theme-color" content="#10241a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#10241a; --bg2:#173225; --card:#1c3a2b; --line:rgba(201,168,76,.28);
+    --gold:#c9a84c; --gold-soft:#e8d08a; --cream:#f5f0e8; --muted:#b9c9bd; --bad:#ffb4a8;
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{font-family:'Nunito',system-ui,sans-serif;color:var(--cream);line-height:1.6;font-size:17px;min-height:100vh;
+    background:radial-gradient(1100px 560px at 50% -8%,#24513a 0%,var(--bg) 58%) fixed,var(--bg)}
+  .wrap{max-width:720px;margin:0 auto;padding:16px 16px 64px}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--gold-soft);outline-offset:3px}
+  .oculto{display:none!important}
+  .sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 2px 16px;min-height:64px}
+  .logo-box img{max-height:56px;max-width:190px;object-fit:contain;display:block}
+  .logo-fallback{font-family:'Cormorant Garamond',serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .toplink{font-size:.9rem;color:var(--gold-soft);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+
+  .hero{border-radius:28px;padding:30px 22px 26px;border:1px solid var(--line);
+    background:radial-gradient(circle at 95% 0%,rgba(201,168,76,.25) 0,transparent 40%),linear-gradient(150deg,#1f4a35,#12281d 75%);box-shadow:0 18px 40px rgba(0,0,0,.3)}
+  .eyebrow{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(2.1rem,9vw,3.2rem);line-height:1.05;color:var(--gold-soft);margin:10px 0 10px}
+  .hero p{color:var(--cream);max-width:520px}
+  .resumen{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:16px 0 20px;color:var(--gold-soft);font-weight:700}
+  .resumen .big{font-size:1.5rem;font-family:'Cormorant Garamond',serif}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;cursor:pointer;text-decoration:none;border-radius:999px;
+    padding:14px 22px;font:inherit;font-weight:800;transition:transform .15s ease}
+  .btn:active{transform:scale(.97)}
+  .btn[disabled]{opacity:.6;cursor:default}
+  .btn-gold{background:linear-gradient(145deg,#e8d08a,#c9a84c);color:#10241a;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+  .btn-line{background:transparent;color:var(--gold-soft);border:1px solid var(--line)}
+  .btn-line:hover{background:rgba(201,168,76,.12)}
+  .btn-sm{padding:9px 16px;font-size:.9rem}
+
+  .notice{margin-top:16px;padding:13px 16px;border:1px solid var(--line);border-radius:16px;background:rgba(201,168,76,.1);font-size:.94rem;color:var(--gold-soft)}
+
+  h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.9rem;line-height:1.15;color:var(--gold-soft)}
+  section.block{padding-top:34px}
+  .sub{color:var(--muted);font-size:.97rem;margin-top:4px}
+
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+  .chip{border:1px solid var(--line);background:transparent;color:var(--gold-soft);border-radius:999px;padding:8px 16px;font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+  .chip:hover{background:rgba(201,168,76,.12)}
+  .chip[aria-pressed="true"]{background:var(--gold);color:#10241a;border-color:var(--gold)}
+
+  .card{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+  .exp-head{display:flex;gap:12px;align-items:center}
+  .avatar{flex:0 0 46px;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(201,168,76,.18);color:var(--gold-soft);font-weight:800;font-size:1.2rem}
+  .exp-name{font-weight:800}
+  .exp-meta{font-size:.84rem;color:var(--muted)}
+  .stars{color:var(--gold);letter-spacing:2px;font-size:1.15rem;margin:10px 0 2px}
+  .exp-text{margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .exp-foto{display:block;width:100%;max-height:420px;object-fit:cover;border-radius:16px;margin-top:12px}
+  .exp audio{width:100%;margin-top:12px}
+  .code{margin-top:14px;padding:14px 16px;border:1px dashed var(--line);border-radius:16px;background:rgba(0,0,0,.18)}
+  .code-label{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800}
+  .code-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 12px}
+  .code-row strong{font-size:1.25rem;letter-spacing:.04em}
+  .vacio{text-align:center;color:var(--muted);padding:26px 10px}
+  .mas{text-align:center;margin-top:8px}
+
+  /* Formulario */
+  form{margin-top:16px}
+  .campo{margin-bottom:18px}
+  label,.lbl{display:block;font-weight:800;margin-bottom:6px;color:var(--gold-soft);font-size:.95rem}
+  .ayuda{font-size:.84rem;color:var(--muted);margin-top:5px}
+  input[type=text],select,textarea{width:100%;font:inherit;color:var(--cream);background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  select option{color:#111}
+  textarea{min-height:120px;resize:vertical}
+  input::placeholder,textarea::placeholder{color:#8ea597}
+  .estrellas{display:flex;gap:6px}
+  .star{background:none;border:0;cursor:pointer;font-size:2.2rem;line-height:1;color:#4c6a58;padding:2px 4px;border-radius:10px}
+  .star.on{color:var(--gold)}
+  .contador{text-align:right;font-size:.8rem;color:var(--muted)}
+  .fila{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .rec-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff6b5c;margin-right:6px;animation:pulso 1s infinite}
+  @keyframes pulso{50%{opacity:.3}}
+  .prev{margin-top:10px}
+  .prev audio,.prev img{width:100%;border-radius:14px}
+  .prev img{max-height:300px;object-fit:cover}
+  .check{display:flex;gap:10px;align-items:flex-start;font-weight:600;color:var(--cream)}
+  .check input{margin-top:5px;width:20px;height:20px;accent-color:var(--gold);flex:0 0 auto}
+  .check span{font-size:.93rem}
+  .error{color:var(--bad);font-weight:700;margin:6px 0 14px}
+  .exito{padding:22px;border:1px solid var(--gold);border-radius:var(--radius);background:rgba(201,168,76,.12)}
+  .exito h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold-soft);margin-bottom:6px}
+
+  footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:40px;line-height:1.6}
+  footer strong{color:var(--gold-soft)}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LOGO: sube tu archivo como logo.png a la raíz del repositorio -->
+  <div class="topbar">
+    <div class="logo-box">
+      <img src="logo.png" alt="Naturaleza Abierta" id="logo">
+      <span class="logo-fallback oculto" id="logoFallback">Naturaleza Abierta</span>
+    </div>
+    <a class="toplink" id="linkCatalogo" href="#" target="_blank" rel="noopener">Ver catálogo</a>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Naturaleza Abierta presenta</div>
+    <h1>Historias que nacen del bienestar</h1>
+    <p>Cada experiencia es diferente. Aquí compartimos las palabras, la voz y las fotos de personas de nuestra comunidad.</p>
+    <div class="resumen" id="resumen" aria-live="polite"></div>
+    <a class="btn btn-gold" href="#compartir">Compartir mi experiencia</a>
+    <div class="notice">Son vivencias personales de cada quien. No son pruebas de eficacia, no sustituyen atención médica ni prometen curación.</div>
+  </header>
+
+  <!-- MURO -->
+  <section class="block" id="muro">
+    <h2>Lo que cuenta la comunidad</h2>
+    <p class="sub">Solo se publica lo que revisamos y la persona autorizó.</p>
+    <div class="chips oculto" id="chips" role="group" aria-label="Filtrar por producto o actividad"></div>
+    <div id="lista"><div class="vacio">Cargando experiencias…</div></div>
+    <div class="mas oculto" id="masWrap"><button class="btn btn-line" id="btnMas" type="button">Ver más experiencias</button></div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="block" id="compartir">
+    <h2>Comparte tu experiencia</h2>
+    <p class="sub">Puedes escribir, grabar tu voz o subir una foto (o todo junto). Antes de publicarla, el equipo la revisa.</p>
+
+    <div id="exito" class="exito oculto" role="status">
+      <h3>¡Gracias por compartir!</h3>
+      <p>Recibimos tu experiencia. Queda pendiente de revisión y, cuando la aprobemos, aparecerá en este muro.</p>
+      <p style="margin-top:14px"><button class="btn btn-line btn-sm" id="otra" type="button">Enviar otra experiencia</button></p>
+    </div>
+
+    <form id="form" class="card" novalidate>
+      <div class="campo">
+        <label for="item">¿Sobre qué es tu experiencia?</label>
+        <select id="item"><option value="">Naturaleza Abierta en general</option></select>
+      </div>
+
+      <div class="campo">
+        <label for="nombre">Tu nombre o apodo (se verá en público)</label>
+        <input type="text" id="nombre" maxlength="60" autocomplete="given-name" placeholder="Ej.: María">
+      </div>
+
+      <div class="campo">
+        <span class="lbl" id="lblEstrellas">¿Cuántas estrellas le das?</span>
+        <div class="estrellas" id="estrellas" role="group" aria-labelledby="lblEstrellas"></div>
+      </div>
+
+      <div class="campo">
+        <label for="comentario">Tu experiencia</label>
+        <textarea id="comentario" maxlength="1000" placeholder="¿Qué viviste? ¿Qué te gustó?"></textarea>
+        <div class="contador"><span id="cuenta">0</span>/1000</div>
+      </div>
+
+      <div class="campo">
+        <span class="lbl">Tu voz (opcional)</span>
+        <div class="fila">
+          <button class="btn btn-line btn-sm" id="btnGrabar" type="button">🎙️ Grabar mi voz</button>
+          <span id="tiempo" class="ayuda oculto" aria-live="off"></span>
+        </div>
+        <div class="ayuda">Hasta 60 segundos. Si prefieres, <label for="audioArchivo" style="display:inline;font-weight:700;text-decoration:underline;cursor:pointer;color:var(--gold-soft)">elige un archivo de audio</label>.</div>
+        <input type="file" id="audioArchivo" accept="audio/*" class="sr">
+        <div class="prev oculto" id="audioPrev"><audio controls id="audioEl"></audio><button class="btn btn-line btn-sm" id="quitarAudio" type="button" style="margin-top:8px">Quitar audio</button></div>
+      </div>
+
+      <div class="campo">
+        <span class="lbl">Una foto (opcional)</span>
+        <div class="fila"><label for="fotoArchivo" class="btn btn-line btn-sm" style="margin:0;cursor:pointer">📷 Elegir foto</label></div>
+        <input type="file" id="fotoArchivo" accept="image/*" class="sr">
+        <div class="prev oculto" id="fotoPrev"><img id="fotoEl" alt="Vista previa de tu foto"><button class="btn btn-line btn-sm" id="quitarFoto" type="button" style="margin-top:8px">Quitar foto</button></div>
+      </div>
+
+      <div class="campo">
+        <label for="codigo">Tu código de afiliado (opcional)</label>
+        <input type="text" id="codigo" maxlength="20" autocapitalize="characters" placeholder="NA-12345">
+        <label class="check" style="margin-top:10px"><input type="checkbox" id="mostrarCodigo"><span>Autorizo mostrar mi código en mi experiencia para que otras personas puedan comprar con él.</span></label>
+      </div>
+
+      <div class="campo">
+        <label for="contacto">Correo o teléfono (opcional, no se publica)</label>
+        <input type="text" id="contacto" maxlength="120" autocomplete="email" placeholder="Solo para contactarte si hace falta">
+        <div class="ayuda">Si pones tu código, usa el teléfono con el que te afiliaste: así lo verificamos más rápido.</div>
+      </div>
+
+      <div class="campo oculto" aria-hidden="true"><label for="web">No llenar</label><input type="text" id="web" tabindex="-1" autocomplete="off"></div>
+
+      <div class="campo">
+        <label class="check"><input type="checkbox" id="consent"><span>Autorizo a Naturaleza Abierta a publicar mi nombre o apodo y lo que comparto aquí (texto, voz y foto) en este sitio y en sus redes. Puedo pedir que lo retiren en cualquier momento escribiéndoles. Entiendo que es mi experiencia personal y no sustituye atención médica.</span></label>
+      </div>
+
+      <div class="error oculto" id="error" role="alert"></div>
+      <button class="btn btn-gold" id="enviar" type="submit">Enviar mi experiencia</button>
+    </form>
+  </section>
+
+  <footer>
+    <p><strong>Naturaleza Abierta</strong></p>
+    <p>¿Quieres que retiremos tu experiencia? <a id="linkRetirar" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  /* ============ CONFIGURACIÓN ============ */
+  var SUPA = 'https://tgvcvnhrwswuxgjbpvwq.supabase.co';
+  var KEY = 'sb_publishable_EKV8OM1y96u-DV_kUPGwkg_BZuGdf4D';   // llave pública (la misma que usan tus otras páginas)
+  var CATALOGO = 'https://catalogo.naturalezaabierta.com/';
+  var WHATSAPP = '584221482602';                                  // para pedir que retiren una experiencia
+  var CONSENT_VERSION = 'v1';
+  var MAX_SEG = 60;
+  var MAX_BYTES = 3800000;
+  /* ======================================= */
+
+  function $(s){ return document.querySelector(s); }
+  function h(tag, attrs){
+    var el = document.createElement(tag), a = attrs || {};
+    Object.keys(a).forEach(function(k){ if(a[k] !== false && a[k] != null) el.setAttribute(k, a[k]); });
+    for(var i = 2; i < arguments.length; i++){
+      var c = arguments[i]; if(c == null) continue;
+      el.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    }
+    return el;
+  }
+  function mostrar(el, si){ el.classList.toggle('oculto', !si); }
+  function fecha(iso){ try{ return new Date(iso).toLocaleDateString('es-VE',{day:'numeric',month:'long',year:'numeric'}); }catch(e){ return ''; } }
+  function urlMedia(p){ return SUPA + '/storage/v1/object/public/experiencias-publico/' + String(p).split('/').map(encodeURIComponent).join('/'); }
+
+  /* Logo y enlaces */
+  var logo = $('#logo');
+  function logoFalla(){ logo.classList.add('oculto'); $('#logoFallback').classList.remove('oculto'); }
+  logo.addEventListener('error', logoFalla);
+  if(logo.complete && logo.naturalWidth === 0) logoFalla();
+  $('#linkCatalogo').href = CATALOGO;
+  $('#linkRetirar').href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent('Hola, quiero pedir que retiren mi experiencia publicada en Experiencias de Naturaleza Abierta.');
+
+  function rpc(fn, args){
+    return fetch(SUPA + '/rest/v1/rpc/' + fn, {
+      method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY }, body: JSON.stringify(args || {})
+    }).then(function(r){ if(!r.ok) throw new Error('http ' + r.status); return r.json(); });
+  }
+
+  /* ---------- Muro ---------- */
+  var filtro = null, cursor = null, items = [];
+
+  function estrellasTxt(n){ return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n); }
+
+  function copiar(txt, btn){
+    function ok(){ var t = btn.textContent; btn.textContent = '¡Copiado!'; setTimeout(function(){ btn.textContent = t; }, 1500); }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, function(){}); }
+    else { var ta = h('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){} ta.remove(); }
+  }
+
+  function tarjeta(e){
+    var art = h('article', { 'class': 'card exp' });
+    art.appendChild(h('div', { 'class': 'exp-head' },
+      h('div', { 'class': 'avatar', 'aria-hidden': 'true' }, (e.nombre || '?').trim().charAt(0).toUpperCase()),
+      h('div', null, h('div', { 'class': 'exp-name' }, e.nombre || ''), h('div', { 'class': 'exp-meta' }, [e.item_nombre, fecha(e.creado_en)].filter(Boolean).join(' · ')))
+    ));
+    art.appendChild(h('div', { 'class': 'stars', role: 'img', 'aria-label': e.estrellas + ' de 5 estrellas' }, estrellasTxt(e.estrellas)));
+    if(e.comentario) art.appendChild(h('p', { 'class': 'exp-text' }, e.comentario));
+    if(e.foto) art.appendChild(h('img', { 'class': 'exp-foto', src: urlMedia(e.foto), alt: 'Foto compartida por ' + (e.nombre || 'una persona'), loading: 'lazy' }));
+    if(e.audio) art.appendChild(h('audio', { controls: '', preload: 'none', src: urlMedia(e.audio), 'aria-label': 'Audio de ' + (e.nombre || 'la persona') }));
+    if(e.codigo){
+      var cp = h('button', { 'class': 'btn btn-line btn-sm', type: 'button' }, 'Copiar');
+      cp.addEventListener('click', function(){ copiar(e.codigo, cp); });
+      art.appendChild(h('div', { 'class': 'code' },
+        h('div', { 'class': 'code-label' }, 'Código de afiliado'),
+        h('div', { 'class': 'code-row' }, h('strong', null, e.codigo), cp),
+        h('a', { 'class': 'btn btn-gold btn-sm', href: CATALOGO + '?ref=' + encodeURIComponent(e.codigo), target: '_blank', rel: 'noopener' }, 'Comprar con este código')
+      ));
+    }
+    return art;
+  }
+
+  function pintarResumen(r){
+    var box = $('#resumen'); box.textContent = '';
+    if(!r || !r.total){ return; }
+    box.appendChild(h('span', { 'class': 'big' }, '★ ' + (r.promedio != null ? Number(r.promedio).toFixed(1) : '')));
+    box.appendChild(h('span', null, r.total + (r.total === 1 ? ' experiencia' : ' experiencias')));
+  }
+
+  function cargar(reset){
+    var lista = $('#lista');
+    if(reset){ cursor = null; lista.textContent = ''; lista.appendChild(h('div', { 'class': 'vacio' }, 'Cargando experiencias…')); }
+    return rpc('fn_experiencias_publicas', { p_item_id: filtro, p_limite: 12, p_antes: cursor }).then(function(d){
+      if(reset) lista.textContent = '';
+      pintarResumen(d.resumen);
+      var arr = d.items || [];
+      if(reset && !arr.length){
+        lista.appendChild(h('div', { 'class': 'vacio' }, 'Todavía no hay experiencias publicadas aquí. ¡Puedes ser la primera persona en compartir la tuya!'));
+      }
+      arr.forEach(function(e){ lista.appendChild(tarjeta(e)); });
+      if(arr.length) cursor = arr[arr.length - 1].creado_en;
+      mostrar($('#masWrap'), arr.length >= 12);
+    }).catch(function(){
+      if(reset) lista.textContent = '';
+      lista.appendChild(h('div', { 'class': 'vacio' }, 'No pudimos cargar las experiencias. Intenta de nuevo en un momento.'));
+    });
+  }
+  $('#btnMas').addEventListener('click', function(){ cargar(false); });
+
+  function pintarChips(){
+    var box = $('#chips'); box.textContent = '';
+    var con = items.filter(function(i){ return i.total > 0; });
+    if(con.length < 1){ mostrar(box, false); return; }
+    function chip(txt, id){
+      var b = h('button', { 'class': 'chip', type: 'button', 'aria-pressed': filtro === id ? 'true' : 'false' }, txt);
+      b.addEventListener('click', function(){ filtro = id; pintarChips(); cargar(true); });
+      return b;
+    }
+    box.appendChild(chip('Todas', null));
+    con.forEach(function(i){ box.appendChild(chip(i.nombre, i.id)); });
+    mostrar(box, true);
+  }
+
+  function pintarSelect(){
+    var sel = $('#item');
+    var grupos = [['producto', 'Productos y servicios'], ['evento', 'Experiencias y actividades']];
+    grupos.forEach(function(g){
+      var lista = items.filter(function(i){ return i.tipo === g[0]; });
+      if(!lista.length) return;
+      var og = h('optgroup', { label: g[1] });
+      lista.forEach(function(i){ og.appendChild(h('option', { value: i.id }, i.nombre)); });
+      sel.appendChild(og);
+    });
+    var pre = new URLSearchParams(location.search).get('item');
+    if(pre && items.some(function(i){ return i.id === pre; })) sel.value = pre;
+  }
+
+  rpc('fn_experiencias_items').then(function(d){ items = d || []; pintarChips(); pintarSelect(); }).catch(function(){});
+  cargar(true);
+
+  /* ---------- Formulario ---------- */
+  var estrellas = 0, audioBlob = null, audioUrl = null, fotoBlob = null, fotoUrl = null;
+
+  var starsBox = $('#estrellas');
+  for(var s = 1; s <= 5; s++){
+    (function(n){
+      var b = h('button', { 'class': 'star', type: 'button', 'aria-label': n + (n === 1 ? ' estrella' : ' estrellas'), 'aria-pressed': 'false' }, '★');
+      b.addEventListener('click', function(){ estrellas = n; pintarStars(); });
+      starsBox.appendChild(b);
+    })(s);
+  }
+  function pintarStars(){
+    Array.prototype.forEach.call(starsBox.children, function(b, i){
+      b.classList.toggle('on', i < estrellas); b.setAttribute('aria-pressed', i === estrellas - 1 ? 'true' : 'false');
+    });
+  }
+
+  $('#comentario').addEventListener('input', function(){ $('#cuenta').textContent = this.value.length; });
+
+  function error(msg){ var e = $('#error'); e.textContent = msg || ''; mostrar(e, !!msg); if(msg) e.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+
+  /* Audio: grabar o elegir archivo */
+  var rec = null, chunks = [], stream = null, tick = null, t0 = 0, corte = null;
+  function mimeGrabacion(){
+    if(!window.MediaRecorder) return '';
+    var c = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'];
+    for(var i = 0; i < c.length; i++){ if(MediaRecorder.isTypeSupported(c[i])) return c[i]; }
+    return '';
+  }
+  function fmt(s){ var m = Math.floor(s / 60), r = Math.floor(s % 60); return m + ':' + (r < 10 ? '0' : '') + r; }
+  function ponerAudio(blob){
+    if(audioUrl) URL.revokeObjectURL(audioUrl);
+    audioBlob = blob; audioUrl = URL.createObjectURL(blob);
+    $('#audioEl').src = audioUrl; mostrar($('#audioPrev'), true);
+  }
+  function quitarAudio(){
+    if(audioUrl) URL.revokeObjectURL(audioUrl);
+    audioBlob = null; audioUrl = null; $('#audioEl').removeAttribute('src'); mostrar($('#audioPrev'), false); $('#audioArchivo').value = '';
+  }
+  function pararGrabacion(){
+    clearInterval(tick); clearTimeout(corte);
+    if(rec && rec.state !== 'inactive') rec.stop();
+  }
+  $('#btnGrabar').addEventListener('click', function(){
+    var btn = this;
+    if(rec && rec.state === 'recording'){ pararGrabacion(); return; }
+    error('');
+    if(!navigator.mediaDevices || !window.MediaRecorder){ error('Tu navegador no puede grabar aquí. Elige un archivo de audio, o escribe tu experiencia.'); return; }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function(st){
+      stream = st; chunks = [];
+      var mime = mimeGrabacion();
+      rec = mime ? new MediaRecorder(st, { mimeType: mime }) : new MediaRecorder(st);
+      rec.ondataavailable = function(ev){ if(ev.data && ev.data.size) chunks.push(ev.data); };
+      rec.onstop = function(){
+        stream.getTracks().forEach(function(t){ t.stop(); });
+        btn.textContent = '🎙️ Grabar de nuevo'; mostrar($('#tiempo'), false);
+        var blob = new Blob(chunks, { type: rec.mimeType || mime || 'audio/webm' });
+        if(blob.size > MAX_BYTES){ error('La grabación quedó muy pesada. Intenta una más corta.'); return; }
+        if(blob.size < 1000){ error('No se escuchó nada. Intenta grabar de nuevo.'); return; }
+        ponerAudio(blob);
+      };
+      rec.start(); t0 = Date.now();
+      btn.innerHTML = ''; btn.appendChild(h('span', { 'class': 'rec-dot' })); btn.appendChild(document.createTextNode('Detener'));
+      var t = $('#tiempo'); mostrar(t, true); t.textContent = '0:00 / ' + fmt(MAX_SEG);
+      tick = setInterval(function(){ t.textContent = fmt((Date.now() - t0) / 1000) + ' / ' + fmt(MAX_SEG); }, 250);
+      corte = setTimeout(pararGrabacion, MAX_SEG * 1000);
+    }).catch(function(){ error('No pudimos usar el micrófono. Revisa el permiso del navegador o elige un archivo de audio.'); });
+  });
+  $('#audioArchivo').addEventListener('change', function(){
+    var f = this.files && this.files[0]; if(!f) return;
+    if(f.size > MAX_BYTES){ error('Ese audio pesa mucho (máximo unos 3,8 MB). Elige uno más corto.'); this.value = ''; return; }
+    error(''); ponerAudio(f);
+  });
+  $('#quitarAudio').addEventListener('click', quitarAudio);
+
+  /* Foto: se reduce en el teléfono antes de enviarla */
+  function reducirFoto(file){
+    return new Promise(function(res, rej){
+      var u = URL.createObjectURL(file), img = new Image();
+      img.onload = function(){
+        var max = 1280, w = img.naturalWidth, hh = img.naturalHeight, k = Math.min(1, max / Math.max(w, hh));
+        var c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(hh * k);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(u);
+        c.toBlob(function(b){ b ? res(b) : rej(new Error('blob')); }, 'image/jpeg', 0.82);
+      };
+      img.onerror = function(){ URL.revokeObjectURL(u); rej(new Error('img')); };
+      img.src = u;
+    });
+  }
+  function quitarFoto(){
+    if(fotoUrl) URL.revokeObjectURL(fotoUrl);
+    fotoBlob = null; fotoUrl = null; $('#fotoEl').removeAttribute('src'); mostrar($('#fotoPrev'), false); $('#fotoArchivo').value = '';
+  }
+  $('#fotoArchivo').addEventListener('change', function(){
+    var f = this.files && this.files[0]; if(!f) return;
+    error('');
+    reducirFoto(f).then(function(b){
+      if(b.size > MAX_BYTES){ error('La foto quedó muy pesada. Prueba con otra.'); return; }
+      if(fotoUrl) URL.revokeObjectURL(fotoUrl);
+      fotoBlob = b; fotoUrl = URL.createObjectURL(b); $('#fotoEl').src = fotoUrl; mostrar($('#fotoPrev'), true);
+    }).catch(function(){ error('No pudimos leer esa foto. Prueba con otra.'); });
+  });
+  $('#quitarFoto').addEventListener('click', quitarFoto);
+
+  /* Envío */
+  var MENSAJES = {
+    nombre_invalido: 'Escribe tu nombre o apodo (de 2 a 60 letras).',
+    estrellas_invalidas: 'Elige cuántas estrellas le das.',
+    sin_consentimiento: 'Necesitamos tu autorización para poder publicar.',
+    sin_contenido: 'Cuéntanos algo: escribe, graba tu voz o sube una foto.',
+    comentario_largo: 'Tu texto es muy largo (máximo 1000 letras).',
+    item_invalido: 'Ese producto o actividad ya no está disponible. Elige otro.',
+    codigo_invalido: 'Ese código de afiliado no existe. Revísalo o déjalo en blanco.',
+    limite: 'Hay muchos envíos en este momento. Inténtalo de nuevo en un rato.',
+    audio_muy_grande: 'El audio pesa demasiado. Graba uno más corto.',
+    foto_muy_grande: 'La foto pesa demasiado. Prueba con otra.',
+    audio_formato: 'No reconocimos ese archivo de audio. Graba uno desde aquí.',
+    foto_formato: 'No reconocimos esa foto. Prueba con otra.'
+  };
+
+  $('#form').addEventListener('submit', function(ev){
+    ev.preventDefault(); error('');
+    var nombre = $('#nombre').value.trim(), coment = $('#comentario').value.trim(), codigo = $('#codigo').value.trim();
+    if(rec && rec.state === 'recording'){ error('Detén la grabación antes de enviar.'); return; }
+    if(nombre.length < 2){ error(MENSAJES.nombre_invalido); $('#nombre').focus(); return; }
+    if(!estrellas){ error(MENSAJES.estrellas_invalidas); return; }
+    if(!coment && !audioBlob && !fotoBlob){ error(MENSAJES.sin_contenido); return; }
+    if(codigo && !$('#mostrarCodigo').checked){ error('Para usar tu código, marca la casilla que autoriza mostrarlo. Si no quieres mostrarlo, déjalo en blanco.'); return; }
+    if(!$('#consent').checked){ error(MENSAJES.sin_consentimiento); return; }
+
+    var fd = new FormData();
+    fd.append('nombre', nombre); fd.append('estrellas', String(estrellas)); fd.append('item_id', $('#item').value);
+    fd.append('comentario', coment); fd.append('contacto', $('#contacto').value.trim());
+    fd.append('codigo', codigo); fd.append('mostrar_codigo', $('#mostrarCodigo').checked ? '1' : '');
+    fd.append('consentimiento', '1'); fd.append('consentimiento_version', CONSENT_VERSION);
+    fd.append('web', $('#web').value);
+    if(audioBlob){
+      var t = (audioBlob.type || '').toLowerCase();
+      var ext = t.indexOf('mp4') > -1 || t.indexOf('m4a') > -1 || t.indexOf('aac') > -1 ? 'm4a' : t.indexOf('ogg') > -1 ? 'ogg' : t.indexOf('mpeg') > -1 || t.indexOf('mp3') > -1 ? 'mp3' : 'webm';
+      fd.append('audio', audioBlob, 'audio.' + ext);
+    }
+    if(fotoBlob) fd.append('foto', fotoBlob, 'foto.jpg');
+
+    var btn = $('#enviar'); btn.disabled = true; btn.textContent = 'Enviando…';
+    fetch(SUPA + '/functions/v1/experiencias', { method: 'POST', body: fd })
+      .then(function(r){ return r.json().catch(function(){ return { ok: false }; }); })
+      .then(function(d){
+        if(d && d.ok){
+          $('#form').reset(); estrellas = 0; pintarStars(); quitarAudio(); quitarFoto(); $('#cuenta').textContent = '0';
+          $('#btnGrabar').textContent = '🎙️ Grabar mi voz';
+          mostrar($('#form'), false); mostrar($('#exito'), true); $('#exito').scrollIntoView({ block: 'center', behavior: 'smooth' });
+        } else {
+          error(MENSAJES[d && d.error] || 'No pudimos enviar tu experiencia. Inténtalo de nuevo en un momento.');
+        }
+      })
+      .catch(function(){ error('No pudimos conectar. Revisa tu internet e inténtalo de nuevo.'); })
+      .then(function(){ btn.disabled = false; btn.textContent = 'Enviar mi experiencia'; });
+  });
+
+  $('#otra').addEventListener('click', function(){ mostrar($('#exito'), false); mostrar($('#form'), true); $('#form').scrollIntoView({ behavior: 'smooth' }); });
+})();
+</script>
+</body>
+</html>
