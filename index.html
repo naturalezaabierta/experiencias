@@ -102,6 +102,36 @@
 
   footer{text-align:center;color:var(--muted);font-size:.82rem;margin-top:40px;line-height:1.6}
   footer strong{color:var(--gold-soft)}
+  /* Muro en cuadrícula (en teléfono queda de 1 columna, igual que antes) */
+  #lista{display:grid;gap:14px;align-items:start}
+  #lista .card{margin:0}
+  #lista .vacio{grid-column:1/-1}
+
+  /* ===== Versión web (pantallas grandes) ===== */
+  @media (min-width:900px){
+    body{font-size:18px}
+    .wrap{max-width:1180px;padding:24px 48px 90px}
+    .topbar{padding:10px 0 24px}
+    .logo-box img{max-height:72px;max-width:260px}
+    .toplink{font-size:1rem;padding:10px 20px}
+    .hero{padding:64px 64px 56px;border-radius:36px}
+    .hero h1{font-size:4rem;max-width:760px}
+    .hero p{font-size:1.15rem;max-width:640px}
+    .notice{max-width:640px}
+    section.block{padding-top:64px}
+    h2{font-size:2.6rem}
+    .sub{font-size:1.05rem}
+    #lista{grid-template-columns:repeat(2,1fr);gap:22px}
+    .card{padding:26px}
+    #form.card{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;padding:40px}
+    #form .campo:has(#comentario),#form .campo:has(#audioArchivo),#form .campo:has(#consent),#form .error,#form #enviar{grid-column:1/-1}
+    #form #enviar{justify-self:start;padding:16px 40px}
+    textarea{min-height:150px}
+    .exito{padding:34px}
+  }
+  @media (min-width:1200px){
+    #lista{grid-template-columns:repeat(3,1fr)}
+  }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
